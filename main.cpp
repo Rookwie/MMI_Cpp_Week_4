@@ -20,7 +20,7 @@ public:
         std::cout << "Player " << name << " destroyed." << std::endl;
     }
 
-    // Getter- und Setter-Funktionen (wie zuvor implementiert)
+    // Getter- / Setter
 
     // Befreundeter Operator <<
     friend std::ostream& operator<<(std::ostream& os, const Player& player) {
@@ -48,27 +48,31 @@ public:
         std::cout << "PlayerDatabase destroyed." << std::endl;
     }
 
-    // Methode, um einen Spieler hinzuzufügen
+    // Spieler hinzuzufügen
     void addPlayer(const Player& player) {
         playerList->push_back(player);
     }
 
-    // Methode, um die Liste zu leeren
+    // Liste leeren
     void clear() {
         playerList->clear();
     }
 
-    // Methode, um die Anzahl der Spieler zurückzugeben
+    // Anzahl der Spieler zurückzugeben
     size_t getPlayerCount() const {
         return playerList->size();
     }
 
-    // Operator [], um auf den n-ten Spieler in der Liste zuzugreifen
+    // n-ten Spieler in der Liste
     const Player& operator[](size_t index) const {
         return (*playerList)[index];
     }
 
-    // Befreundeter Operator <<
+    Player& operator[](size_t index) {
+        return (*playerList)[index];
+    }
+
+    // Operator <<
     friend std::ostream& operator<<(std::ostream& os, const PlayerDatabase& database) {
         os << "PlayerDatabase contents:\n";
         for (const Player& player : *(database.playerList)) {
@@ -79,11 +83,10 @@ public:
 };
 
 int main() {
-    // Beispiel für die Verwendung der Player und PlayerDatabase-Klassen
     PlayerDatabase database;
 
-    Player player1("Alice", 10, "Likes magic");
-    Player player2("Bob", 5, "Good at strategy games");
+    Player player1("Alice", 10, "magic");
+    Player player2("Bob", 5, "strategy");
 
     database.addPlayer(player1);
     database.addPlayer(player2);
